@@ -1,9 +1,22 @@
 # dcm2png
+
 ## Prerequisite
+
 ### Python
 * Python 3.10.7
-### [dcmtk](https://support.dcmtk.org/docs/index.html)
+
+## How to install
 ```
-$ sudo apt update && sudo apt upgrade
-$ sudo apt install dcmtk
+$ pip install -r requirements.txt
+```
+
+## How to use
+```
+$ python dcm2png.py --help
+usage: dcm2png.py [-h] --dcm-dir DCM_DIR --png-dir PNG_DIR
+
+options:
+  -h, --help         show this help message and exit
+  --dcm-dir DCM_DIR  a path to a directory to search for dcm files recursively
+  --png-dir PNG_DIR  a path to a directory to output png files
 ```
