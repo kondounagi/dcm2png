@@ -60,7 +60,7 @@ def dcm2png(dcm_path: Path, png_dir: Path, stem_suffix: str) -> Path | None:
 
 def main(dcm_dir: Path, png_dir: Path, stem_suffix: str) -> None:
     dcm_files = list(dcm_dir.glob('**/*.dcm'))
-    for idx, dcm_path in track(enumerate(dcm_files)):
+    for idx, dcm_path in track(enumerate(dcm_files), description="Converting dcm to png ..."):
         try:
             png_path = dcm2png(dcm_path, png_dir, stem_suffix)
         except Exception as e:
