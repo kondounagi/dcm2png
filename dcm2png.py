@@ -24,13 +24,12 @@ def get_args() -> Tuple[Path, Path, str]:
 
 def dcm2png(dcm_path: Path, png_dir: Path, stem_suffix: str) -> Path | None:
     dataset = dcmread(str(dcm_path))
+    if not ("PixelData" in dataset):
+        return None
 
     # cf. https://github.com/pydicom/pylibjpeg-libjpeg/issues/29
     dataset.PhotometricInterpretation = "YBR_FULL"
-    try:
-        image = Image.fromarray(dataset.pixel_array)  # type: ignore
-    except AttributeError:
-        return None
+    image = Image.fromarray(dataset.pixel_array)  # type: ignore
 
     patient_id: str = dataset.PatientID if "PatientID" in dataset else ""
     study_date: str = (
@@ -64,7 +63,7 @@ def main(dcm_dir: Path, png_dir: Path, stem_suffix: str) -> None:
     for idx, dcm_path in track(enumerate(dcm_files)):
         png_path = dcm2png(dcm_path, png_dir, stem_suffix)
         if png_path is None:
-            print(f"{idx+1:^8d}/{len(dcm_files):^8d}: !!! failed to convert {str(dcm_path)} !!!", file=sys.stderr)
+            print(f"{idx+1:^8d}/{len(dcm_files):^8d}: !!! failed to convert {str(dcm_path)}: no PixelArray found in DICOM !!!", file=sys.stderr)
             continue
         print(f"{idx+1:^8d}/{len(dcm_files):^8d}: converted {str(dcm_path)} to {str(png_path)} ...", file=sys.stderr)
 
