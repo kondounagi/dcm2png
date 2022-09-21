@@ -61,7 +61,10 @@ def dcm2png(dcm_path: Path, png_dir: Path, stem_suffix: str) -> Path | None:
 def main(dcm_dir: Path, png_dir: Path, stem_suffix: str) -> None:
     dcm_files = list(dcm_dir.glob('**/*.dcm'))
     for idx, dcm_path in track(enumerate(dcm_files)):
-        png_path = dcm2png(dcm_path, png_dir, stem_suffix)
+        try:
+            png_path = dcm2png(dcm_path, png_dir, stem_suffix)
+        except Exception as e:
+            print(f"{idx+1:^8d}/{len(dcm_files):^8d}: !!! unexpected error on {str(dcm_path)}: no PixelArray found in DICOM !!!", file=sys.stderr)
         if png_path is None:
             print(f"{idx+1:^8d}/{len(dcm_files):^8d}: !!! failed to convert {str(dcm_path)}: no PixelArray found in DICOM !!!", file=sys.stderr)
             continue
