@@ -3,23 +3,36 @@
 ## Prerequisite
 
 ### Python
-* Python 3.10.7
+
+- Python 3.10.7
 
 ## How to install
-```
+
+```bash
 $ pip install -r requirements.txt
 ```
 
 ## How to use
-```
-python dcm2png.py --help
 
-usage: dcm2png.py [-h] --dcm-dir DCM_DIR --png-dir PNG_DIR [--stem-suffix STEM_SUFFIX]
+```bash
+$ python dcm2png.py --help
 
-options:
-  -h, --help            show this help message and exit
-  --dcm-dir DCM_DIR     a path to a directory to search for dcm files recursively
-  --png-dir PNG_DIR     a path to a directory to output png files
-  --stem-suffix STEM_SUFFIX
-                        a suffix of filename added to output png files
+ Usage: dcm2png.py [OPTIONS] DCM_DIR PNG_DIR
+
+╭─ Arguments ──────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ *    dcm_dir      PATH  a path to a directory to search for dcm files recursively [default: None] [required] │
+│ *    png_dir      PATH  a path to a directory to output png files [default: None] [required]                 │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --verbose               --no-verbose             whether to show verbose messages [default: no-verbose]      │
+│ --stem-suffix                           TEXT     a suffix of filename added to output png files              │
+│                                                  [default: out]                                              │
+│ --max-workers                           INTEGER  the maximum number of workers to convert dcm files to png   │
+│                                                  files                                                       │
+│                                                  [default: 64]                                               │
+│ --install-completion                             Install completion for the current shell.                   │
+│ --show-completion                                Show completion for the current shell, to copy it or        │
+│                                                  customize the installation.                                 │
+│ --help                                           Show this message and exit.                                 │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
